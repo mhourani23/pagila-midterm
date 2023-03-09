@@ -12,3 +12,40 @@
  * NOTE:
  * Your results should not contain any duplicate titles.
  */
+
+-- Solutions Mustafa Hourani
+
+SELECT title FROM film 
+
+-- 1
+EXCEPT
+SELECT title FROM film 
+WHERE title ILIKE '%f%'
+
+-- 2
+EXCEPT 
+SELECT title FROM film
+JOIN film_actor USING(film_id)
+JOIN actor USING(actor_id)
+WHERE first_name ILIKE '%f%' OR last_name ILIKE '%f%'
+
+-- 3
+EXCEPT
+SELECT title FROM film
+JOIN inventory USING(film_id)
+JOIN rental USING(inventory_id)
+JOIN customer USING(customer_id)
+WHERE first_name ILIKE '%f%' OR last_name ILIKE '%f%'
+
+-- 4
+EXCEPT
+SELECT title FROM film
+JOIN inventory USING(film_id)
+JOIN rental USING(inventory_id)
+JOIN customer USING(customer_id)
+JOIN address USING(address_id)
+JOIN city USING(city_id)
+JOIN country USING(country_id)
+WHERE country ILIKE '%f%' OR city ILIKE '%f%' OR address ILIKE '%f%' OR address2 ILIKE '%f%'
+
+ORDER BY 1;
